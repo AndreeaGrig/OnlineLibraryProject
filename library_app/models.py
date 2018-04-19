@@ -23,7 +23,7 @@ class Book(models.Model):
     )
     author = models.CharField(max_length=300)
     description = models.TextField(max_length=10000)
-    category = models.IntegerField(choices=[
+    type = models.IntegerField(choices=[
         (1, "Premium"),
         (2, "Standard"),
     ]

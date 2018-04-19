@@ -12,3 +12,9 @@ class BookListView(ListView):
     model = Book
     context_object_name = 'books'
 
+
+class DetailsListView(DetailView):
+    template_name = 'book.html'
+    model = Book
+    context_object_name = 'book'
+
