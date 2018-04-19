@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+
+from django.core.files.storage import FileSystemStorage
 from django.db import models
 from django.contrib.auth.models import User
+from time import time
+
+from OnlineLibrary import settings
+
+
+def get_upload_filename(instance, filename):
+    return "uploaded_files/%s_%s" % str(time()).replace('.', '_').filename
 
 
 class Book(models.Model):
@@ -27,7 +36,7 @@ class Book(models.Model):
     add_date = models.DateTimeField(auto_now_add=True)
     pub_date = models.DateTimeField()
     pub_house = models.CharField(max_length=300)
-    url_pdf = models.TextField(max_length=10000)
+    pdf = models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='pdfs')
     cover = models.ImageField(upload_to='covers')
     price = models.FloatField()
 
