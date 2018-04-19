@@ -4,13 +4,8 @@ from __future__ import unicode_literals
 from django.core.files.storage import FileSystemStorage
 from django.db import models
 from django.contrib.auth.models import User
-from time import time
 
 from OnlineLibrary import settings
-
-
-def get_upload_filename(instance, filename):
-    return "uploaded_files/%s_%s" % str(time()).replace('.', '_').filename
 
 
 class Book(models.Model):

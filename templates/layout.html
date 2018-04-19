@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    {% load static %}
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+</head>
+<body>
+	<div class="header">
+		<div>
+			<a href="index.html"><img src="{% static "images/logo.png" %}" alt="Logo"></a>
+		</div>
+	</div>
+	<div class="body">
+		<div style="padding-left:10%">
+			<div class="header">
+				<ul>
+					<li class="current">
+						<a href="{%  url 'home' %}">Home</a>
+					</li>
+				</ul>
+			</div>
+			<div class="body">
+				{% block content %} {% endblock %}
+			</div>
+
+		</div>
+	</div>
+	<div class="footer">
+		<div>
+			<p>
+				Food & Recipes 2018 . All rights reserved
+			</p>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}All books{% endblock %}
+
+{% block content %}
+<div>
+    <div>
+        {% for book in books %}
+            <div>
+            <a href="#"><img style="width:660px;height:400px"src="{{ book.cover.url }}" alt="Image"></a>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}
