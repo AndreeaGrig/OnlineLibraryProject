@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}All books{% endblock %}
+
+{% block content %}
+            <div>
+                <div>
+                    <h3>{{ book.title }}</h3>
+                    <a href="#"><img style="width:660px;height:400px"src="{{ book.cover.url }}" alt="Image"></a>
+
+                    <h5>Description</h5>
+							<p>{{ book.description }}</p>
+                    <ul>
+                                <li> <strong>Category: </strong>{{ book.get_category_display }}</li>
+                                <li> <strong>Author: </strong>{{ book.author }}</li>
+                                {%  if book.get_type_display == 'Premium' %}
+                                    <button  type="submit" style="background-color:#483D8B; color: white">Buy</button>
+                                {% else %}
+                                    <button  type="submit" style="background-color:#483D8B; color: white">Read</button>
+                                {% endif %}
+                                <li> <strong>Pub date: </strong>{{ book.pub_date }}</li>
+                                <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
+                                <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
+                    </ul>
+                </div>
+            </div>
+
+
+{% endblock %}
