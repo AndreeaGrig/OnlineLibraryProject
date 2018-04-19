@@ -18,3 +18,5 @@ class DetailsListView(DetailView):
     model = Book
     context_object_name = 'book'
 
+
+
