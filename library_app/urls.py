@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$',
-        views.MyTemplateView.as_view(), name='home'),
+        views.BookListView.as_view(), name='home'),
     ]
