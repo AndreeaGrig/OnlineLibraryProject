@@ -7,8 +7,7 @@
     <div>
         {% for book in books %}
             <div>
-            {{ media.cover.url }}
-            <img src="{{book.cover.url}}" style="width:660px;height:400px"  alt="Image"/>
+                <img src="{{ book.cover.url }}" style="width:660px ;height:600px"  alt="Image"/>
             </div>
         {% endfor %}
 
