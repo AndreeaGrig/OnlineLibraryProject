@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% load static %}
+{% load staticfiles %}
 {% block title %}All books{% endblock %}
 
 {% block content %}
@@ -7,7 +7,8 @@
     <div>
         {% for book in books %}
             <div>
-            <a href="#"><img style="width:660px;height:400px"src="{{ book.cover.url }}" alt="Image"></a>
+            {{ media.cover.url }}
+            <img src="{{book.cover.url}}" style="width:660px;height:400px"  alt="Image"/>
             </div>
         {% endfor %}
 

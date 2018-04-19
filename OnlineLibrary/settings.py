@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -25,7 +24,7 @@ SECRET_KEY = '1x&r8a@-naz^e-zxv*m-kp^kqi@jgk#d94o8m)2&#md=t2bv!8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -115,9 +114,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_ROOT = "C:/Users/andre/PycharmProjects/OnlineLibrary/static/"
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = 'C:/Users/andre/PycharmProjects/OnlineLibrary/media/'
-MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
