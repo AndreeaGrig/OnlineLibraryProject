@@ -47,3 +47,4 @@ class DetailsListView(DetailView):
 
 
 
+
