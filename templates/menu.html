@@ -1,0 +1,16 @@
+
+<nav class="navbar navbar-inverse" >
+  <div class="container-fluid" style="background-color:#A9A9A9; color: white">
+    <div class="navbar-header">
+    <ul class="nav navbar-nav">
+        <li ><a href="{% url 'home' %} ">Home</a></li>
+        {% if request.user.is_authenticated %}
+            <li><a href="#">Favourites</a></li>
+            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+        {% else %}
+            <li><a href="{%  url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% endif %}
+        </ul>
+     </div>
+  </div>
+</nav>
