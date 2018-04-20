@@ -23,6 +23,14 @@
                                 <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
                     </ul>
                 </div>
+                <div>
+                    <h4>Rewiews</h4>
+                   {%  for review in book.review_set.all %}
+                    <div>
+                        <h6>{{ review.id_user.username}}:</h6>
+                    </div>
+                   {% endfor %}
+                </div>
             </div>
 
 
