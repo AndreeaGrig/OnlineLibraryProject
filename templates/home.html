@@ -22,7 +22,7 @@
       <div class="carousel-inner" role="listbox">
 
         <div class="item active">
-          <img src="{% static "images/romance1.jpg" %}" alt="Romance">
+          <a href="{% url 'category_list' category=5 %}"><img src="{% static "images/romance1.jpg" %}" alt="Romance"></a>
           <div class="carousel-caption">
               <h1>ROMANCE</h1>
               <h3><i>"There is no charm equal to the tenderness of heart..."</i></h3>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="item">
-          <img src="{% static "images/art1.jpg" %}" alt="Art">
+            <a href="{% url 'category_list' category=1 %}"><img src="{% static "images/art1.jpg" %}" alt="Art"></a>
           <div class="carousel-caption">
               <h1>ART</h1>
             <h3><i>"Art enables us to find ourselves and lose ourselves at the same time..."</i></h3>
@@ -40,7 +40,7 @@
         </div>
 
         <div class="item">
-          <img src="{% static "images/biography1.jpg" %}" alt="Biography">
+            <a href="{% url 'category_list' category=3 %}"><img src="{% static "images/biography1.jpg" %}" alt="Biography"></a>
           <div class="carousel-caption">
              <h1>BIOGRAPHY</h1>
             <h3><i>"Always live your life with your biography in mind..."</i></h3>
@@ -49,7 +49,7 @@
         </div>
 
         <div class="item">
-          <img src="{% static "images/children1.jpg" %}" alt="Childhood">
+            <a href="{% url 'category_list' category=7 %}"><img src="{% static "images/children1.jpg" %}" alt="Childhood"></a>
           <div class="carousel-caption">
               <h1>KIDS</h1>
             <h3><i>"Play is the work of childhood."</i></h3>
@@ -58,7 +58,7 @@
         </div>
 
         <div class="item">
-          <img src="{% static "images/fantasy1.jpg" %}" alt="Fantasy">
+            <a href="{% url 'category_list' category=2 %}"><img src="{% static "images/fantasy1.jpg" %}" alt="Fantasy"></a>
           <div class="carousel-caption">
               <h1>FANTASY</h1>
             <h3><i>"I like nonsense, it wakes up the brain cells. Fantasy is a necessary ingredient in living."</i></h3>
@@ -67,7 +67,7 @@
         </div>
 
         <div class="item">
-          <img src="{% static "images/history1.jpg" %}" alt="History">
+            <a href="{% url 'category_list' category=8 %}"><img src="{% static "images/history1.jpg" %}" alt="History"></a>
           <div class="carousel-caption">
               <h1>HISTORY</h1>
            <h3><i>"History never really says goodbye. History says, 'See you later!'."</i></h3>
@@ -76,7 +76,7 @@
         </div>
 
         <div class="item">
-          <img src="{% static "images/religion1.jpg" %}" alt="Religion">
+            <a href="{% url 'category_list' category=6 %}"><img src="{% static "images/religion1.jpg" %}" alt="Religion"></a>
           <div class="carousel-caption">
               <h1>RELIGION</h1>
             <h3><i>"Just as a candle cannot burn without fire, men cannot live without a spiritual life."</i></h3>
@@ -85,7 +85,7 @@
         </div>
 
         <div class="item">
-          <img src="{% static "images/science1.jpg" %}" alt="Science">
+            <a href="{% url 'category_list' category=4 %}"><img src="{% static "images/science1.jpg" %}" alt="Science"></a>
           <div class="carousel-caption">
               <h1>SCIENCE</h1>
             <h3><i>"The science of today is the technology of tomorrow."</i></h3>

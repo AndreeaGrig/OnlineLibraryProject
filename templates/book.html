@@ -13,18 +13,17 @@
                     <ul>
                                 <li> <strong>Category: </strong>{{ book.get_category_display }}</li>
                                 <li> <strong>Author: </strong>{{ book.author }}</li>
+                                <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
                                 <li> <strong>Pub date: </strong>{{ book.pub_date }}</li>
-                                <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
-                                <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
+
                                 {% if book.get_type_display == 'Premium' %}
+                                    <li> <strong>Price: </strong>{{ book.price }}</li>
                                     {%  if request.user.is_authenticated %}
                                         <button  type="submit" style="background-color:#483D8B; color: white">Buy</button>
                                     {% endif %}
                                 {% else %}
                                     <a href="{{ book.pdf.url }}" > <button  type="submit" style="background-color:#483D8B; color: white">Read</button></a>
                                 {% endif %}
-                                <li> <strong>Pub date: </strong>{{ book.pub_date }}</li>
-                                <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
                     </ul>
                 </div>
                 <div>
