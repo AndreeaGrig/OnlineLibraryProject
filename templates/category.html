@@ -3,20 +3,13 @@
 {% block title %}All books{% endblock %}
 
 {% block content %}
-<div>
-     <div class="row">
-      <div class="col-sm-4" style="background-color: aqua">.col-sm-4</div>
-      <div class="col-sm-4" style="background-color: red">.col-sm-4</div>
-      <div class="col-sm-4" style="background-color: yellow">.col-sm-4</div>
-    </div>
     <div>
-        {% for book in books %}
+        {% for book in books_list %}
             <div>
             <a href="{% url 'book_details' pk=book.pk %}"><img style="width:660px;height:400px"src="{{ book.cover.url }}" alt="Image"></a>
             </div>
         {% endfor %}
 
     </div>
-</div>
 
 {% endblock %}

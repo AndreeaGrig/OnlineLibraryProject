@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% load static %}
-{% block title %}All books{% endblock %}
+{% block title %}{{ book.title }}{% endblock %}
 
 {% block content %}
             <div>
@@ -16,15 +16,17 @@
                                 <li> <strong>Pub date: </strong>{{ book.pub_date }}</li>
                                 <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
                                 <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
-                                {%  if book.get_type_display == 'Premium' %}
-                                    <button  type="submit" style="background-color:#483D8B; color: white">Buy</button>
+                                {% if book.get_type_display == 'Premium' %}
+                                    {%  if request.user.is_authenticated %}
+                                        <button  type="submit" style="background-color:#483D8B; color: white">Buy</button>
+                                    {% endif %}
                                 {% else %}
-                                    <a href="{{ book.pdf.path }}" > <button  type="submit" style="background-color:#483D8B; color: white">Read</button></a>
+                                    <a href="{{ book.pdf.url }}" > <button  type="submit" style="background-color:#483D8B; color: white">Read</button></a>
                                 {% endif %}
                     </ul>
                 </div>
                 <div>
-                    <h4>Rewiews</h4>
+                    <h4>Reviews</h4>
                     {% if request.user.is_authenticated %}
                         <a href="#">
                             <button class="btn .btn-default btn-block">
@@ -38,6 +40,7 @@
                         <p>{{ review.text }}</p>
                     </div>
                    {% endfor %}
+
                 </div>
             </div>
 

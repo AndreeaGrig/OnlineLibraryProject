@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}My library{% endblock %}
+
+{% block content %}
+    <h1>My library</h1>
+    {% for book in books %}
+        {% if book.id_user.pk == request.user.pk %}
+            <div>
+                <h3>{{ book.id_book.title }}</h3>
+                <ul>
+                    <li>
+                        Author: {{ book.id_book.author }}
+                    </li>
+                    <li>
+                        Publishing House: {{ book.id_book.pub_house }}
+                    </li>
+                    <li>
+                        Description: {{ book.id_book.description }}
+                    </li>
+                </ul>
+                <img src="{{ book.id_book.cover.url }}" alt="NoPhotos" height="200px" width="200px"/><br/>
+                <a href="{{ book.id_book.pdf.url }}" > <button  type="submit" style="background-color:#483D8B; color: white">Read</button></a>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

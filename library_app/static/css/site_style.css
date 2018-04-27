@@ -1,3 +1,6 @@
 body{
     background-image: url(../../static/images/img_back.jpg);
 }
+.body{
+    background-color: antiquewhite;
+}

@@ -2,9 +2,12 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.views import View
 from django.views.generic import (TemplateView, ListView, CreateView, DetailView, DeleteView)
-from models import Book
+
+
+from models import Book, Purchase
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from forms import LoginForm
@@ -34,6 +37,7 @@ def logout_view(request):
         logout(request)
         return redirect('home')
 
+
 class BookListView(ListView):
     template_name = 'home.html'
     model = Book
@@ -46,5 +50,16 @@ class DetailsListView(DetailView):
     context_object_name = 'book'
 
 
+class MyBooksView(ListView):
+    template_name = 'mybooks.html'
+    model = Purchase
+    context_object_name = 'books'
 
+
+class CategoryListView(ListView):
+    template_name = 'category.html'
+    model = Book
+
+    def get_queryset(self):
+        return Book.objects.filter(category=self.kwargs['category'])
 
