@@ -13,10 +13,13 @@
                     <ul>
                                 <li> <strong>Category: </strong>{{ book.get_category_display }}</li>
                                 <li> <strong>Author: </strong>{{ book.author }}</li>
+                                <li> <strong>Pub date: </strong>{{ book.pub_date }}</li>
+                                <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
+                                <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
                                 {%  if book.get_type_display == 'Premium' %}
                                     <button  type="submit" style="background-color:#483D8B; color: white">Buy</button>
                                 {% else %}
-                                    <button  type="submit" style="background-color:#483D8B; color: white">Read</button>
+                                    <a href="{{ book.pdf.path }}" > <button  type="submit" style="background-color:#483D8B; color: white">Read</button></a>
                                 {% endif %}
                                 <li> <strong>Pub date: </strong>{{ book.pub_date }}</li>
                                 <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
@@ -24,9 +27,17 @@
                 </div>
                 <div>
                     <h4>Rewiews</h4>
+                    {% if request.user.is_authenticated %}
+                        <a href="#">
+                            <button class="btn .btn-default btn-block">
+                                 Add review
+                            </button>
+                        </a>
+                     {% endif %}
                    {%  for review in book.review_set.all %}
                     <div>
                         <h6>{{ review.id_user.username}}:</h6>
+                        <p>{{ review.text }}</p>
                     </div>
                    {% endfor %}
                 </div>
