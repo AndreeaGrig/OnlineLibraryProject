@@ -1,16 +1,34 @@
+{% load static %}
+<div class="header row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <img src="{% static "images/logo1.png" %}">
+    </div>
+    <div class="col-sm-4"></div>
+</div>
 
-<nav class="navbar navbar-inverse" >
-  <div class="container-fluid" style="background-color:#A9A9A9; color: white">
-    <div class="navbar-header">
-    <ul class="nav navbar-nav">
-        <li ><a href="{% url 'home' %} ">Home</a></li>
-        {% if request.user.is_authenticated %}
-            <li><a href="#">Favourites</a></li>
-            <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+<div id="navbar">
+  <a style="font-family: 'Amarante';" href="{% url 'home' %} "><span class="glyphicon glyphicon-home"></span> Home</a>
+  {% if request.user.is_authenticated %}
+
+            <a style="float: right;font-family: 'Amarante';" href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span> Logout</a>
+      <a style="float: right;font-family: 'Amarante';" href="#"><span class="glyphicon glyphicon-star"></span> Favourites</a>
         {% else %}
-            <li><a href="{%  url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <a style="float: right;font-family: 'Amarante';" href="{%  url 'login' %}"><span class="glyphicon glyphicon-user"></span> Login</a>
         {% endif %}
-        </ul>
-     </div>
-  </div>
-</nav>
+</div>
+<script>
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky");
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+</script>
+
