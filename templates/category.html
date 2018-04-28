@@ -11,9 +11,9 @@
    </div>
     {% endwith %}
         {% for book in book_list %}
-
             <a style="padding: 20px;" href="{% url 'book_details' pk=book.pk %}"><img class="img-thumbnail" style="width:200px;height:350px" src="{{ book.cover.url }}" alt="Image"></a>
-
+        {% empty %}
+            <p>No books here yet :(</p>
         {% endfor %}
 
 {% endblock %}

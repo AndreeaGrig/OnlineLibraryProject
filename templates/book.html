@@ -29,17 +29,20 @@
                 <div>
                     <h4>Reviews</h4>
                     {% if request.user.is_authenticated %}
-                        <a href="#">
+                        <a href="{% url 'add_review_to_book' pk=book.pk%}">
                             <button class="btn .btn-default btn-block">
                                  Add review
                             </button>
                         </a>
+                        {% block rev %}{% endblock %}
                      {% endif %}
                    {%  for review in book.review_set.all %}
                     <div>
                         <h6>{{ review.id_user.username}}:</h6>
                         <p>{{ review.text }}</p>
                     </div>
+                       {% empty %}
+                        <p>No reviews here yet :(</p>
                    {% endfor %}
 
                 </div>

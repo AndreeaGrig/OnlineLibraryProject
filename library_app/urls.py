@@ -23,4 +23,8 @@ urlpatterns = [
     url(r'^category/(?P<category>[1-8]{1})/$',
         views.CategoryListView.as_view(),
         name='category_list'),
+
+    url(r'^book/(?P<pk>[0-9]+)/review/$',
+        views.add_review_to_book,
+        name='add_review_to_book'),
     ]

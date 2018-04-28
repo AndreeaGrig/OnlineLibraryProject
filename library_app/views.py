@@ -5,11 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import (TemplateView, ListView, CreateView, DetailView, DeleteView)
-
+from .forms import ReviewForm
 
 from models import Book, Purchase
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from forms import LoginForm
 
 
@@ -62,4 +62,24 @@ class CategoryListView(ListView):
 
     def get_queryset(self):
         return Book.objects.filter(category=self.kwargs['category'])
+
+
+def add_review_to_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.id_book = book
+            review.id_user = request.user
+            review.save()
+            return redirect(reverse(
+                "book_details",
+                kwargs={
+                    "pk": book.pk
+                }
+            ))
+    else:
+        form = ReviewForm()
+        return render(request, 'addreview.html', {'form': form})
 
