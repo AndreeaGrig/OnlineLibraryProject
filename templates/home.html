@@ -3,20 +3,126 @@
 {% block title %}All books{% endblock %}
 
 {% block content %}
-<div>
-     <div class="row">
-      <div class="col-sm-4" style="background-color: aqua">.col-sm-4</div>
-      <div class="col-sm-4" style="background-color: red">.col-sm-4</div>
-      <div class="col-sm-4" style="background-color: yellow">.col-sm-4</div>
-    </div>
-    <div>
-        {% for book in books %}
-            <div>
-            <a href="{% url 'book_details' pk=book.pk %}"><img style="width:660px;height:400px"src="{{ book.cover.url }}" alt="Image"></a>
-            </div>
-        {% endfor %}
+     <div class="row" style="margin-bottom: 20px;">
 
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="5"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="6"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="7"></li>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+
+        <div class="item active">
+          <a href="{% url 'category_list' category=5 %}"><img src="{% static "images/romance1.jpg" %}" alt="Romance"></a>
+          <div class="carousel-caption">
+              <h1>ROMANCE</h1>
+              <h3><i>"There is no charm equal to the tenderness of heart..."</i></h3>
+            <p>100 Books</p>
+          </div>
+        </div>
+
+        <div class="item">
+            <a href="{% url 'category_list' category=1 %}"><img src="{% static "images/art1.jpg" %}" alt="Art"></a>
+          <div class="carousel-caption">
+              <h1>ART</h1>
+            <h3><i>"Art enables us to find ourselves and lose ourselves at the same time..."</i></h3>
+            <p>1200 Books</p>
+          </div>
+        </div>
+
+        <div class="item">
+            <a href="{% url 'category_list' category=3 %}"><img src="{% static "images/biography1.jpg" %}" alt="Biography"></a>
+          <div class="carousel-caption">
+             <h1>BIOGRAPHY</h1>
+            <h3><i>"Always live your life with your biography in mind..."</i></h3>
+            <p>240 Books</p>
+          </div>
+        </div>
+
+        <div class="item">
+            <a href="{% url 'category_list' category=7 %}"><img src="{% static "images/children1.jpg" %}" alt="Childhood"></a>
+          <div class="carousel-caption">
+              <h1>KIDS</h1>
+            <h3><i>"Play is the work of childhood."</i></h3>
+            <p>3200 Books</p>
+          </div>
+        </div>
+
+        <div class="item">
+            <a href="{% url 'category_list' category=2 %}"><img src="{% static "images/fantasy1.jpg" %}" alt="Fantasy"></a>
+          <div class="carousel-caption">
+              <h1>FANTASY</h1>
+            <h3><i>"I like nonsense, it wakes up the brain cells. Fantasy is a necessary ingredient in living."</i></h3>
+            <p>180 Books</p>
+          </div>
+        </div>
+
+        <div class="item">
+            <a href="{% url 'category_list' category=8 %}"><img src="{% static "images/history1.jpg" %}" alt="History"></a>
+          <div class="carousel-caption">
+              <h1>HISTORY</h1>
+           <h3><i>"History never really says goodbye. History says, 'See you later!'."</i></h3>
+            <p>530 Books</p>
+          </div>
+        </div>
+
+        <div class="item">
+            <a href="{% url 'category_list' category=6 %}"><img src="{% static "images/religion1.jpg" %}" alt="Religion"></a>
+          <div class="carousel-caption">
+              <h1>RELIGION</h1>
+            <h3><i>"Just as a candle cannot burn without fire, men cannot live without a spiritual life."</i></h3>
+            <p>200 Books</p>
+          </div>
+        </div>
+
+        <div class="item">
+            <a href="{% url 'category_list' category=4 %}"><img src="{% static "images/science1.jpg" %}" alt="Science"></a>
+          <div class="carousel-caption">
+              <h1>SCIENCE</h1>
+            <h3><i>"The science of today is the technology of tomorrow."</i></h3>
+            <p>1300 Books</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
-</div>
+     </div>
+    <script>
+    $('.carousel').carousel();
+    $('.carousel').carousel({
+              interval: 2000
+            });
+    </script>
+
+    <div class="row" style="text-align: center; margin-bottom: 40px;">
+        <h1 style="font-family: 'Amarante';color: black; border-top:dotted;border-bottom: dotted;padding: 10px 0px;font-size: 50px;
+        font-weight: 400;
+        letter-spacing: 5px;">THE LATEST</h1>
+   </div>
+
+        {% for book in books %}
+
+            <a style="padding: 20px;" href="{% url 'book_details' pk=book.pk %}"><img class="img-thumbnail" style="width:200px;height:350px" src="{{ book.cover.url }}" alt="Image"></a>
+
+        {% endfor %}
 
 {% endblock %}

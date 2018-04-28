@@ -1,3 +1,62 @@
+ html {
+    height: 100%;
+    margin: 0;
+}
 body{
-    background-image: url(../../static/images/img_back.jpg);
+    background: url(../../static/images/img_back.jpg);
+    background-size: cover;
+}
+
+.header {
+  background-color: rgba(255,255,255,.15);
+  text-align: center;
+}
+
+#navbar {
+  overflow: hidden;
+  background-color: darkslategray;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
+.carousel-caption h3{
+     font-family: 'Caveat';
+     font-size: 30px;
+}
+
+.carousel-caption h1{
+     font-family: 'Black Han Sans';
+     font-size: 60px;
 }
