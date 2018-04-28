@@ -20,6 +20,10 @@
         <label for="id_password">Password:</label>
         <input type="password" name="password" required="" id="id_password" class="form-control">
     </div>
+    <div>
+         <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+    </div>
+
     <button class="btn btn-block" type="submit" style="background-color:#483D8B; color: white">Login</button>
 </form>
 
