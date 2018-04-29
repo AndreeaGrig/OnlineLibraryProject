@@ -3,6 +3,9 @@ from social import extra
 
 from . import views
 from library_app import views as core_views
+import django.contrib.auth.views
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     url(r'^$',
@@ -43,4 +46,14 @@ urlpatterns = [
     url(r'^book/(?P<pk>[0-9]+)/review/$',
         views.add_review_to_book,
         name='add_review_to_book'),
+
+    url('^', include('django.contrib.auth.urls')),
+
+    url(r'^password_reset/$', auth_views.password_reset),
+
+    url(r'^password_reset/done/$', auth_views.password_reset_done),
+
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', auth_views.password_reset_confirm),
+
+    url(r'^reset/done/$', auth_views.password_reset_complete)
 ]
