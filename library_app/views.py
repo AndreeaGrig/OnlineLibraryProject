@@ -1,39 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import warnings
 
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.models import User
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.views import PasswordContextMixin, deprecate_current_app
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, resolve_url
 from django.template.loader import render_to_string
-from django.template.response import TemplateResponse
-from django.utils.decorators import method_decorator
-from django.utils.deprecation import RemovedInDjango21Warning
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.http import HttpResponse
-from django.views import View
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic import (TemplateView, ListView, CreateView, DetailView, DeleteView, FormView)
-
-from OnlineLibrary import settings
 from library_app.forms import SignupForm
 from library_app.tokens import account_activation_token
-from models import Book
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.shortcuts import render, redirect
 from .forms import ReviewForm
 
-from models import Book, Purchase, Tag
+from models import Book, Purchase
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from forms import LoginForm
@@ -175,6 +157,7 @@ class RecommendationListView(ListView):
                 match = [(tag1, tag2) for tag1 in current_book.tag_set.all() for tag2 in other.tag_set.all() if tag1.tag_name == tag2.tag_name]
                 scored_books.append((other, len(match)))
         scored_books = sorted(scored_books, key=lambda tup: (tup[1]), reverse=True)
+        print(scored_books)
         books = [book for (book, score) in scored_books][:6]
         return books
 

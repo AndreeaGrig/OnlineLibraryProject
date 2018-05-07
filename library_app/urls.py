@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^$',
         views.BookListView.as_view(), name='home'),
 
-    url(r'^book/(?P<pk>[0-9]+)/$',
+url(r'^book/(?P<pk>[0-9]+)/$',
         views.RecommendationListView.as_view(), name='book_details'),
 
     url(r'^login',
@@ -57,5 +57,3 @@ urlpatterns = [
 
     url(r'^reset/done/$', auth_views.password_reset_complete)
 ]
-
-
