@@ -10,12 +10,12 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.http import HttpResponse
-from django.views.generic import (TemplateView, ListView, CreateView, DetailView, DeleteView, FormView)
+from django.views.generic import (UpdateView, ListView, CreateView, DetailView, DeleteView, FormView)
 from library_app.forms import SignupForm
 from library_app.tokens import account_activation_token
 from .forms import ReviewForm
 
-from models import Book, Purchase
+from models import Book, Purchase, Review
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from forms import LoginForm
@@ -165,3 +165,30 @@ class RecommendationListView(ListView):
         context = super(RecommendationListView, self).get_context_data(*args, **kwargs)
         context['book'] = Book.objects.get(pk=self.kwargs['pk'])
         return context
+
+
+class ReviewDeleteView(DeleteView):
+    template_name = 'delete.html'
+    model = Review
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse(
+            'book_details',
+            kwargs={
+                'pk': self.object.id_book.pk
+                }
+        )
+
+
+class ReviewUpdateView(UpdateView):
+    template_name = 'form.html'
+    form_class = ReviewForm
+    model = Review
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse(
+            'book_details',
+            kwargs={
+                'pk': self.object.id_book.pk
+            }
+        )

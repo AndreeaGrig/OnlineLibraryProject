@@ -47,6 +47,12 @@ url(r'^book/(?P<pk>[0-9]+)/$',
         views.add_review_to_book,
         name='add_review_to_book'),
 
+    url(r'^book/(?P<pk_book>[0-9]+)/review/(?P<pk>[0-9]+)/delete/$', views.ReviewDeleteView.as_view(),
+        name='review_delete'),
+
+    url(r'^book/(?P<pk_book>[0-9]+)/review/(?P<pk>[0-9]+)/edit/$', views.ReviewUpdateView.as_view(),
+        name='review_update'),
+
     url('^', include('django.contrib.auth.urls')),
 
     url(r'^password_reset/$', auth_views.password_reset),
