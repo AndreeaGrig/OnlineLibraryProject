@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 import warnings
 
-import self as self
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm, PasswordChangeForm
@@ -11,14 +10,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.views import PasswordContextMixin, deprecate_current_app
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.checks import messages
-from django.core.exceptions import ValidationError
-from django.core.mail import EmailMessage, send_mail
-from django.core.validators import validate_email
-from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect, request
+from django.core.mail import EmailMessage
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, resolve_url
-from django.template import loader
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
@@ -90,7 +84,7 @@ def signup(request):
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
-            mail_subject = 'Activate your NALI account.'
+            mail_subject = 'Activate your blog account.'
             message = render_to_string('acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -122,7 +116,7 @@ class CategoryListView(ListView):
         return Book.objects.filter(category=self.kwargs['category'])
 
 
-def activate(request, uidb64, token, backend = 'django.contrib.auth.backends.ModelBackend'):
+def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
@@ -131,7 +125,7 @@ def activate(request, uidb64, token, backend = 'django.contrib.auth.backends.Mod
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+        login(request, user)
         return redirect('home')
         # return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
 
