@@ -54,6 +54,18 @@
                     <div>
                         <h6>{{ review.id_user.username}}:</h6>
                         <p>{{ review.text }}</p>
+                        {% if review.id_user.pk == request.user.pk %}
+                         <a  href="{% url 'review_delete' pk=review.pk pk_book=review.id_book.pk%}">
+                            <button class="btn .btn-default btn-block">
+                                    Delete
+                            </button>
+                        </a>
+                         <a href="{% url 'review_update' pk=review.pk pk_book=review.id_book.pk%}">
+                            <button class="btn .btn-default btn-block" >
+                                    Edit
+                            </button>
+                         </a>
+                    {% endif%}
                     </div>
                        {% empty %}
                         <p>No reviews here yet :(</p>
