@@ -1,19 +1,31 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.contrib.auth import authenticate, login, logout
+import warnings
+
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm, PasswordChangeForm
 from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.views import PasswordContextMixin, deprecate_current_app
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, resolve_url
 from django.template.loader import render_to_string
+from django.template.response import TemplateResponse
+from django.utils.decorators import method_decorator
+from django.utils.deprecation import RemovedInDjango21Warning
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.http import HttpResponse
 from django.views import View
-from django.views.generic import (TemplateView, ListView, CreateView, DetailView, DeleteView)
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.debug import sensitive_post_parameters
+from django.views.generic import (TemplateView, ListView, CreateView, DetailView, DeleteView, FormView)
 
+from OnlineLibrary import settings
 from library_app.forms import SignupForm
 from library_app.tokens import account_activation_token
 from models import Book
@@ -87,7 +99,7 @@ def signup(request):
             })
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(
-                        mail_subject, message, to=[to_email]
+                mail_subject, message, to=[to_email]
             )
             email.send()
             return HttpResponse('Please confirm your email address to complete the registration')
@@ -121,7 +133,7 @@ def activate(request, uidb64, token):
         user.save()
         login(request, user)
         return redirect('home')
-        #return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+        # return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
 
     else:
         return HttpResponse('Activation link is invalid!')
