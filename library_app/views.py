@@ -21,7 +21,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import render, redirect
 from .forms import ReviewForm
 
-from models import Book, Purchase
+from models import Book, Purchase, Tag
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from forms import LoginForm
@@ -57,11 +57,17 @@ class BookListView(ListView):
     model = Book
     context_object_name = 'books'
 
-
-class DetailsListView(DetailView):
-    template_name = 'book.html'
-    model = Book
-    context_object_name = 'book'
+    def get_context_data(self, *args, **kwargs):
+        context = super(BookListView, self).get_context_data(*args, **kwargs)
+        context['romance'] = len(Book.objects.filter(category=5))
+        context['art'] = len(Book.objects.filter(category=1))
+        context['bio'] = len(Book.objects.filter(category=3))
+        context['child'] = len(Book.objects.filter(category=7))
+        context['fantasy'] = len(Book.objects.filter(category=2))
+        context['hist'] = len(Book.objects.filter(category=8))
+        context['religion'] = len(Book.objects.filter(category=6))
+        context['science'] = len(Book.objects.filter(category=4))
+        return context
 
 
 def signup(request):
@@ -140,3 +146,27 @@ def add_review_to_book(request, pk):
         form = ReviewForm()
         return render(request, 'addreview.html', {'form': form})
 
+
+class RecommendationListView(ListView):
+    model = Book
+    template_name = 'book.html'
+    context_object_name = 'rbooks'
+
+    def get_queryset(self):
+        id_book = self.kwargs['pk']
+        current_book = Book.objects.get(pk=id_book)
+        others = Book.objects.all()
+        books = []
+        scored_books = []
+        for other in others:
+            if str(other.pk) != str(id_book):
+                match = [(tag1, tag2) for tag1 in current_book.tag_set.all() for tag2 in other.tag_set.all() if tag1.tag_name == tag2.tag_name]
+                scored_books.append((other, len(match)))
+        scored_books = sorted(scored_books, key=lambda tup: (tup[1]), reverse=True)
+        books = [book for (book, score) in scored_books][:6]
+        return books
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(RecommendationListView, self).get_context_data(*args, **kwargs)
+        context['book'] = Book.objects.get(pk=self.kwargs['pk'])
+        return context

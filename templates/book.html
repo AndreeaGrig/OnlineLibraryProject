@@ -24,13 +24,23 @@
                                         <input type="hidden" name="hosted_button_id" value="DTLRM7BXFT2NG"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                                         <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                                         </form>
-
+                                        {% else %}
+                                        <a href="{% url 'login' %}" > <button  type="submit" style="background-color:#483D8B; color: white">Login to buy</button></a>
                                     {% endif %}
                                 {% else %}
                                     <a href="{{ book.pdf.url }}" > <button  type="submit" style="background-color:#483D8B; color: white">Read</button></a>
                                 {% endif %}
                     </ul>
                 </div>
+
+                  <div class="row" style="text-align: center; margin-bottom: 40px;">
+        <h1 style="font-family: 'Amarante';color: black; border-top:dotted;border-bottom: dotted;padding: 10px 0px;font-size: 50px;
+        font-weight: 400;
+        letter-spacing: 5px;">Similar books</h1>
+   </div>
+        {% for rbook in rbooks %}
+            <a style="padding: 20px;" href="{% url 'book_details' pk=rbook.pk %}"><img class="img-thumbnail" style="width:200px;height:350px" src="{{ rbook.cover.url }}" alt="Image"></a>
+        {% endfor %}
                 <div>
                     <h4>Reviews</h4>
                     {% if request.user.is_authenticated %}

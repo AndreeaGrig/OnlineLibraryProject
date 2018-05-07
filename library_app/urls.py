@@ -9,7 +9,7 @@ urlpatterns = [
         views.BookListView.as_view(), name='home'),
 
     url(r'^book/(?P<pk>[0-9]+)/$',
-        views.DetailsListView.as_view(), name='book_details'),
+        views.RecommendationListView.as_view(), name='book_details'),
 
     url(r'^login',
         views.login_view,
@@ -43,4 +43,5 @@ urlpatterns = [
     url(r'^book/(?P<pk>[0-9]+)/review/$',
         views.add_review_to_book,
         name='add_review_to_book'),
-]
+
+    ]
