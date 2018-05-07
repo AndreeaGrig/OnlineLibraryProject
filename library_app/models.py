@@ -50,3 +50,7 @@ class Review(models.Model):
     id_user = models.ForeignKey(User)
     posted = models.DateTimeField(auto_now_add=True)
 
+
+class Tag(models.Model):
+    id_book = models.ForeignKey(Book)
+    tag_name = models.CharField(max_length=300)
