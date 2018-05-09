@@ -3,6 +3,7 @@
 {% block title %}All books{% endblock %}
 
 {% block content %}
+    <div class="col-sm-10 " style="background-color:#F5F5F5;padding-bottom: 20px">
      <div class="row" style="margin-bottom: 20px;">
 
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -114,7 +115,7 @@
     </script>
 
     <div class="row" style="text-align: center; margin-bottom: 40px;">
-        <h1 style="font-family: 'Amarante';color: black; border-top:dotted;border-bottom: dotted;padding: 10px 0px;font-size: 50px;
+        <h1 style="font-family: 'Actor';color: black; border-top:dotted;border-bottom: dotted;padding: 10px 0px;font-size: 50px;
         font-weight: 400;
         letter-spacing: 5px;">THE LATEST</h1>
    </div>
@@ -124,5 +125,5 @@
             <a style="padding: 20px;" href="{% url 'book_details' pk=book.pk %}"><img class="img-thumbnail" style="width:200px;height:350px" src="{{ book.cover.url }}" alt="Image"></a>
 
         {% endfor %}
-
+    </div>
 {% endblock %}
