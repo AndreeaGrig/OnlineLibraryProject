@@ -1,15 +1,23 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.contrib.auth import authenticate, login, logout
+
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.models import User
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.http import HttpResponse
-from django.views import View
-from django.views.generic import (TemplateView, ListView, CreateView, DetailView, DeleteView)
+from django.views.generic import (UpdateView, ListView, CreateView, DetailView, DeleteView, FormView)
+from library_app.forms import SignupForm
+from library_app.tokens import account_activation_token
+from .forms import ReviewForm
 
-
-from models import Book, Purchase
+from models import Book, Purchase, Review
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from forms import LoginForm
 
 
@@ -43,11 +51,43 @@ class BookListView(ListView):
     model = Book
     context_object_name = 'books'
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(BookListView, self).get_context_data(*args, **kwargs)
+        context['romance'] = len(Book.objects.filter(category=5))
+        context['art'] = len(Book.objects.filter(category=1))
+        context['bio'] = len(Book.objects.filter(category=3))
+        context['child'] = len(Book.objects.filter(category=7))
+        context['fantasy'] = len(Book.objects.filter(category=2))
+        context['hist'] = len(Book.objects.filter(category=8))
+        context['religion'] = len(Book.objects.filter(category=6))
+        context['science'] = len(Book.objects.filter(category=4))
+        return context
 
-class DetailsListView(DetailView):
-    template_name = 'book.html'
-    model = Book
-    context_object_name = 'book'
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your blog account.'
+            message = render_to_string('acc_active_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(
+                mail_subject, message, to=[to_email]
+            )
+            email.send()
+            return HttpResponse('Please confirm your email address to complete the registration')
+    else:
+        form = SignupForm()
+    return render(request, 'signup.html', {'form': form})
 
 
 class MyBooksView(ListView):
@@ -63,3 +103,92 @@ class CategoryListView(ListView):
     def get_queryset(self):
         return Book.objects.filter(category=self.kwargs['category'])
 
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        return redirect('home')
+        # return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+
+    else:
+        return HttpResponse('Activation link is invalid!')
+
+
+def add_review_to_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.id_book = book
+            review.id_user = request.user
+            review.save()
+            return redirect(reverse(
+                "book_details",
+                kwargs={
+                    "pk": book.pk
+                }
+            ))
+    else:
+        form = ReviewForm()
+        return render(request, 'addreview.html', {'form': form})
+
+
+class RecommendationListView(ListView):
+    model = Book
+    template_name = 'book.html'
+    context_object_name = 'rbooks'
+
+    def get_queryset(self):
+        id_book = self.kwargs['pk']
+        current_book = Book.objects.get(pk=id_book)
+        others = Book.objects.all()
+        books = []
+        scored_books = []
+        for other in others:
+            if str(other.pk) != str(id_book):
+                match = [(tag1, tag2) for tag1 in current_book.tag_set.all() for tag2 in other.tag_set.all() if tag1.tag_name == tag2.tag_name]
+                scored_books.append((other, len(match)))
+        scored_books = sorted(scored_books, key=lambda tup: (tup[1]), reverse=True)
+        print(scored_books)
+        books = [book for (book, score) in scored_books][:6]
+        return books
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(RecommendationListView, self).get_context_data(*args, **kwargs)
+        context['book'] = Book.objects.get(pk=self.kwargs['pk'])
+        return context
+
+
+class ReviewDeleteView(DeleteView):
+    template_name = 'delete.html'
+    model = Review
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse(
+            'book_details',
+            kwargs={
+                'pk': self.object.id_book.pk
+                }
+        )
+
+
+class ReviewUpdateView(UpdateView):
+    template_name = 'form.html'
+    form_class = ReviewForm
+    model = Review
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse(
+            'book_details',
+            kwargs={
+                'pk': self.object.id_book.pk
+            }
+        )

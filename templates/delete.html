@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<p> Are you sure you want to delete your review for '{{ review.id_book.title }}'?</p>
+<form method="POST" enctype="multipart/formdata">
+    {% csrf_token %}
+    <button type="submit"> Yes </button>
+    <a href = " {% url 'book_details' pk=review.id_book.pk %}">No</a>
+</form>
+{% endblock %}

@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 from django.core.files.storage import FileSystemStorage
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from OnlineLibrary import settings
 
@@ -47,3 +49,8 @@ class Review(models.Model):
     id_book = models.ForeignKey(Book)
     id_user = models.ForeignKey(User)
     posted = models.DateTimeField(auto_now_add=True)
+
+
+class Tag(models.Model):
+    id_book = models.ForeignKey(Book)
+    tag_name = models.CharField(max_length=300)

@@ -1,9 +1,4 @@
-{% extends 'layout.html' %}
-
-{% block title %}Login{% endblock %}
-
-{% block content %}
-    <div class="col-sm-10 " style="padding-bottom: 20px">
+{% extends 'layout.html' %} {% block title %}Login{% endblock %} {% block content %}
 <div class="row">
 <div class="col-sm-4"></div>
 <div class="col-sm-4" style="border: 0px solid white;padding: 50px 60px;color:white;-webkit-box-shadow: 2px 2px 26px 20px rgba(13,13,12,1);
@@ -26,7 +21,13 @@
         <label for="id_password"><span style="font-family: 'Advent Pro';font-size: 15px;">Password</span></label>
         <input type="password" name="password" required="" id="id_password" placeholder="Password" class="form-control">
     </div>
-    <button class="btn btn-block" type="submit" style="background-color:#036daa; color: white">SUBMIT</button>
+    <div>
+         <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+    </div>
+    <div>
+        <a href="{% url 'password_reset' %}">Forgot your password?</a>
+    </div>
+    <button class="btn btn-block" type="submit" style="background-color:#036daa; color: white">LOGIN</button>
 </form>
 
 </div>
