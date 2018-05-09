@@ -1,9 +1,40 @@
 {% extends 'book.html' %}
 
 {% block content %}
-    <h1>New review</h1>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Send</button>
-    </form>
+    <div class="col-sm-10 " >
+    <style>
+         .fancyBB{
+                background-color: #070c0c;
+                border: none;
+                width: 30%;
+                padding: 10px;
+                color: white;
+                 font-family: 'Abril Fatface';
+                   font-size: 25px;
+                }
+            .fancyBB:hover{
+                color: black;
+                background-color: #feda86;
+            }
+           label{
+               display: none;
+           }
+    </style>
+
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4" style="border: #070c0c solid 2px; padding: 20px;margin-top: 20px;background-color:#F5F5F5;; text-align: center;margin-bottom: 20px;">
+
+                <h1 style="text-align: center;font-family: 'Dancing Script';font-size: 50px;">New review</h1>
+
+                        <form method="POST" class="post-form">{% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="save fancyBB">Send</button>
+                        </form>
+            </div>
+            <div class="col-sm-4"></div>
+
+    </div>
+
+
+
 {% endblock %}

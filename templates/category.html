@@ -3,17 +3,24 @@
 {% block title %}All books{% endblock %}
 
 {% block content %}
+    <div class="col-sm-10 " style="background-color:#F5F5F5;padding-bottom: 20px">
     {% with categ=book_list.0.get_category_display %}
-   <div class="row" style="text-align: center; margin-bottom: 40px;">
-        <h1 style="font-family: 'Amarante';color: black; border-top:dotted;border-bottom: dotted;padding: 10px 0px;font-size: 50px;
+     <div class="row" style="text-align: center; margin-bottom: 40px;margin-top: 40px;">
+        <h1 style="font-family: 'Rage Italic';color: black; border-top:dotted;border-bottom: dotted;padding: 10px 0px;font-size: 50px;
         font-weight: 400;
-        letter-spacing: 5px;">{{ categ }}</h1>
+        letter-spacing: 5px;
+         text-transform: uppercase; ">{{ categ }}</h1>
    </div>
-    {% endwith %}
-        {% for book in book_list %}
-            <a style="padding: 20px;" href="{% url 'book_details' pk=book.pk %}"><img class="img-thumbnail" style="width:200px;height:350px" src="{{ book.cover.url }}" alt="Image"></a>
-        {% empty %}
-            <p>No books here yet :(</p>
-        {% endfor %}
 
+    {% endwith %}
+    <div class="row">
+        {% for book in book_list %}
+            <a style="padding: 20px;" href="{% url 'book_details' pk=book.pk %}">
+                <img class="img-thumbnail" style="width:250px;height:350px;margin:15px;" src="{{ book.cover.url }}" alt="Image">
+            </a>
+        {% empty %}
+            <p style="font-family: 'Chenla';font-size: 20px; ">No books here yet <i class="material-icons">&#xe814;</i></p>
+        {% endfor %}
+    </div>
+    </div>
 {% endblock %}

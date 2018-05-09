@@ -24,31 +24,27 @@
     <link href='https://fonts.googleapis.com/css?family=Actor' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Abril Fatface' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Barrio' rel='stylesheet'>
-<link href='https://fonts.googleapis.com/css?family=Arsenal' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Arsenal' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Caveat Brush' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Chenla' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Dancing Script' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=EB Garamond' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Advent Pro' rel='stylesheet'>
+    <link  href='https://fonts.googleapis.com/css?family=Tangerine' rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
     {% load static %}
 	<title>{% block title %}{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="{% static "css/site_style.css" %}">
-
 </head>
-<body>
+<body style="background: url({% static "images/img_back.jpg" %}) no-repeat center center fixed;background-size: cover;">
   {% include 'menu.html' %}
-
-
-
-
     <div class="row content">
      <div class="col-sm-1"></div>
 
-
          {% block content %} {% endblock %}
-
 
     <div class="col-sm-1"></div>
 

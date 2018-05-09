@@ -1,11 +1,31 @@
 {% extends 'layout.html' %}
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
+  <div class="col-sm-10">
+ <style>
+           .fancyB{
+                background-color: darkslategrey;
+                border: none;
+                width: 100%;
+                padding: 10px;
+                color: white;
+                 font-family: 'Abril Fatface';
+                   font-size: 20px;
+                }
+            .fancyB:hover{
+                color: black;
+                background-color:#98FB98;
+            }
+            </style>
+<div class="col-sm-4"></div>
+<div class="col-sm-4" style="border: 0px solid white;padding: 50px 60px;color:white;-webkit-box-shadow: 2px 2px 26px 20px rgba(13,13,12,1);
+                            -moz-box-shadow: 2px 2px 26px 20px rgba(13,13,12,1);
+                            box-shadow: 2px 2px 26px 20px rgb(206,133,48); ;margin-top: 35px;margin-bottom: 35px;">
+<h1 style="text-align: center;font-family: 'Aclonica';font-size: 35px;">Sign Up</h1>
+  <form method="post" style="color: black">
     {% csrf_token %}
       {% for field in form %}
       <p>
-        {{ field.label_tag }}<br>
+        <span style="font-family: 'Advent Pro';font-size: 15px;color: white">{{ field.label_tag }}</span><br/>
         {{ field }}
         {% if field.help_text %}
           <small style="display: none">{{ field.help_text }}</small>
@@ -15,7 +35,24 @@
         {% endfor %}
       </p>
       {% endfor %}
-    <button type="submit">Sign up</button>
+  <br/>
+    <button class="fancyB" type="submit">Sign up</button>
   </form>
-    <a href="{% url 'social:begin' 'google-oauth2' %}">SingUp with Google</a>
+<br/>
+   <div style="text-align: center">
+    <a style="color: white;text-align: center" href="{% url 'social:begin' 'google-oauth2' %}">SignUp with Google <i class="fa fa-google-plus-official" style="font-size:30px;color:red"></i></a>
+  </div>
+   </div>
+<div class="col-sm-4"></div>
+</div>
+    </div>
+<style>
+
+input{
+    font-size: 15px;
+    font-family: 'Actor';
+    padding: 5px;
+    width: 100%;
+}
+</style>
 {% endblock %}

@@ -3,76 +3,133 @@
 {% block title %}{{ book.title }}{% endblock %}
 
 {% block content %}
-            <div>
-                <div>
-                    <h3>{{ book.title }}</h3>
-                    <a href="#"><img style="width:660px;height:400px"src="{{ book.cover.url }}" alt="Image"></a>
+        <div class="col-sm-10 " style="background-color:#F5F5F5;padding-bottom: 20px">
+            <style>
+           .fancyB{
+                background-color: darkslategrey;
+                border: none;
+                width: 100%;
+                padding: 10px;
+                color: white;
+                 font-family: 'Abril Fatface';
+                   font-size: 25px;
+                }
+            .fancyB:hover{
+                color: black;
+                background-color:#98FB98;
+            }
 
-                    <h5>Description</h5>
-							<p>{{ book.description }}</p>
-                    <ul>
-                                <li> <strong>Category: </strong>{{ book.get_category_display }}</li>
-                                <li> <strong>Author: </strong>{{ book.author }}</li>
-                                <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
-                                <li> <strong>Pub date: </strong>{{ book.pub_date }}</li>
+            .fancyBB{
+                background-color: #070c0c;
+                border: none;
+                width: 50%;
+                padding: 10px;
+                color: white;
+                 font-family: 'Abril Fatface';
+                   font-size: 25px;
+                }
+            .fancyBB:hover{
+                color: black;
+                background-color: #feda86;
+            }
 
-                                {% if book.get_type_display == 'Premium' %}
-                                    <li> <strong>Price: </strong>{{ book.price }}</li>
-                                    {%  if request.user.is_authenticated %}
-                                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                                        <input type="hidden" name="cmd" value="_s-xclick">
-                                        <input type="hidden" name="hosted_button_id" value="DTLRM7BXFT2NG"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                                        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-                                        </form>
-                                        {% else %}
-                                        <a href="{% url 'login' %}" > <button  type="submit" style="background-color:#483D8B; color: white">Login to buy</button></a>
-                                    {% endif %}
-                                {% else %}
-                                    <a href="{{ book.pdf.url }}" > <button  type="submit" style="background-color:#483D8B; color: white">Read</button></a>
-                                {% endif %}
-                    </ul>
-                </div>
+            </style>
 
-                  <div class="row" style="text-align: center; margin-bottom: 40px;">
-        <h1 style="font-family: 'Amarante';color: black; border-top:dotted;border-bottom: dotted;padding: 10px 0px;font-size: 50px;
-        font-weight: 400;
-        letter-spacing: 5px;">Similar books</h1>
-   </div>
-        {% for rbook in rbooks %}
-            <a style="padding: 20px;" href="{% url 'book_details' pk=rbook.pk %}"><img class="img-thumbnail" style="width:200px;height:350px" src="{{ rbook.cover.url }}" alt="Image"></a>
-        {% endfor %}
-                <div>
-                    <h4>Reviews</h4>
-                    {% if request.user.is_authenticated %}
+         <div class="row">
+                            <div class="col-sm-4" style="text-align: center">
+                               <h3 style="font-family: 'Caveat Brush';font-size: 40px;">{{ book.title }}</h3>
+                                <div class="thumbnail" style="padding-top: 20px;background-color: #F5F5F5">
+                                  <img class="img-thumbnail" style="width:250px;height:350px" src="{{ book.cover.url }}" alt="Image">
+                                  <div class="caption">
+                                    {% if book.get_type_display == 'Premium' %}
+                                        <p style="font-family: Actor;font-size: 20px;"><strong>Price: </strong>{{ book.price }} euro</p>
+                                                {%  if request.user.is_authenticated %}
+                                                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                                    <input type="hidden" name="cmd" value="_s-xclick">
+                                                    <input type="hidden" name="hosted_button_id" value="DTLRM7BXFT2NG">
+                                                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                                                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                                                    </form>
+                                                    {% else %}
+                                                    <a href="{% url 'login' %}" > <button  type="submit" class="fancyB">Login to buy</button></a>
+                                                {% endif %}
+                                            {% else %}
+                                                <a href="{{ book.pdf.url }}" > <button class="fancyB"  type="submit">Read</button></a>
+                                            {% endif %}
+                                  </div>
+                            </div>
+                            </div>
+
+                            <div class="col-sm-4" style="padding-top: 100px;font-family: 'Chenla';font-size: 20px;">
+
+                                <ul style="list-style: none;">
+                                            <li> <strong>Author: </strong>{{ book.author }}</li>
+                                            <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
+                                            <li> <strong>Pub date: </strong>{{ book.pub_date }}</li>
+                                            <li> <strong>Category: </strong>{{ book.get_category_display }}</li>
+                                </ul>
+                                   <p>{{ book.description }}</p>
+                            </div>
+
+                            <div class="col-sm-4" style="margin-top: 20px;border: solid black 1px;padding-top: 20px;padding-bottom: 20px;padding-left: 25px;padding-right: 25px; ">
+                               <p style="font-family: 'Abril Fatface';font-size: 22px;color: #778899;">People who liked this also liked... </p>
+                                {% for rbook in rbooks %}
+                                    <a style="padding: 5px;" href="{% url 'book_details' pk=rbook.pk %}"><img class="img-thumbnail" style="margin-bottom:10px;width:100px;height:150px" src="{{ rbook.cover.url }}" alt="Image"></a>
+                                {% endfor %}
+                            </div>
+        </div>
+        <hr/>
+
+         <div class="row">
+
+                    <h4 style="text-align: center;font-family: 'Dancing Script';font-size: 50px;">Reviews</h4>
+                   <hr/>
+             <div class="row" style="text-align: center; margin-bottom: 20px;">
+
+                 {% if request.user.is_authenticated %}
                         <a href="{% url 'add_review_to_book' pk=book.pk%}">
-                            <button class="btn .btn-default btn-block">
-                                 Add review
+                            <button class="fancyBB">
+                                 Leave a review
                             </button>
                         </a>
                      {% endif %}
+
+             </div>
+
+
+                   <div class="col-sm-2"></div>
+
+                   <div class="col-sm-8">
                    {%  for review in book.review_set.all %}
-                    <div>
-                        <h6>{{ review.id_user.username}}:</h6>
-                        <p>{{ review.text }}</p>
-                        {% if review.id_user.pk == request.user.pk %}
-                         <a  href="{% url 'review_delete' pk=review.pk pk_book=review.id_book.pk%}">
-                            <button class="btn .btn-default btn-block">
-                                    Delete
-                            </button>
-                        </a>
-                         <a href="{% url 'review_update' pk=review.pk pk_book=review.id_book.pk%}">
-                            <button class="btn .btn-default btn-block" >
-                                    Edit
-                            </button>
-                         </a>
-                    {% endif%}
-                    </div>
+                       <div class="row" style="border: solid gray 1px;padding: 10px;background: white;margin-bottom: 5px;">
+
+                           <div class="col-sm-4">
+                               <h4 ><span style="font-family: 'Abril Fatface';color: #778899;">{{ review.id_user.username}}</span></h4>
+                           </div>
+
+                            <div class="col-sm-7">
+                                  <h4><span style="font-size: 20px;font-family: EB Garamond;">{{ review.text }}</span></h4>
+
+                            </div>
+                            <div class="col-sm-1">
+                                {% if review.id_user.pk == request.user.pk %}
+                                     <a  href="{% url 'review_delete' pk=review.pk pk_book=review.id_book.pk%}" >
+                                               <span style="color: black;font-size: 20px;" class="glyphicon glyphicon-trash"></span>
+                                    </a><br/><br/>
+                                     <a href="{% url 'review_update' pk=review.pk pk_book=review.id_book.pk%}">
+                                        <span style="color: black;font-size: 20px;" class="glyphicon glyphicon-pencil"></span>
+                                     </a>
+                            {% endif%}
+                            </div>
+                       </div>
                        {% empty %}
-                        <p>No reviews here yet :(</p>
+                        <p style="font-family: 'Chenla';font-size: 20px; ">No reviews here yet <i class="material-icons">&#xe814;</i></p>
                    {% endfor %}
+                   </div>
+                    <div class="col-sm-2"></div>
+                   </div>
+ <div>
 
-                </div>
-            </div>
-
-
+ </div>
+        </div>
 {% endblock %}

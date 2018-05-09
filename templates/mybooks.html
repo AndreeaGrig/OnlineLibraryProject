@@ -3,9 +3,12 @@
 {% block title %}My library{% endblock %}
 
 {% block content %}
-    <div class="col-sm-10 " style="background-color:#F5F5F5;padding-bottom: 20px">
-    <h1>My library</h1>
+    <div class="col-sm-10 " style="background-color:#F5F5F5;padding-bottom: 20px; min-height: 360px;">
+    <hr/>
+     <h1 style="text-align: center;font-family: 'Dancing Script';font-size: 50px;">My library</h1>
+    <hr/>
     {% for book in books %}
+
         {% if book.id_user.pk == request.user.pk %}
             <div>
                 <h3>{{ book.id_book.title }}</h3>
@@ -23,7 +26,9 @@
                 <img src="{{ book.id_book.cover.url }}" alt="NoPhotos" height="200px" width="200px"/><br/>
                 <a href="{{ book.id_book.pdf.url }}" > <button  type="submit" style="background-color:#483D8B; color: white">Read</button></a>
             </div>
+           
         {% endif %}
+
     {% endfor %}
     </div>
 {% endblock %}
