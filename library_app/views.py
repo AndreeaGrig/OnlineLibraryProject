@@ -181,7 +181,7 @@ class ReviewDeleteView(DeleteView):
 
 
 class ReviewUpdateView(UpdateView):
-    template_name = 'form.html'
+    template_name = 'addreview.html'
     form_class = ReviewForm
     model = Review
 
