@@ -136,9 +136,9 @@ def add_review_to_book(request, pk):
                     "pk": book.pk
                 }
             ))
-    else:
-        form = ReviewForm()
-        return render(request, 'addreview.html', {'form': form})
+        else:
+            form = ReviewForm()
+            return render(request, 'addreview.html', {'form': form})
 
 
 class RecommendationListView(ListView):
