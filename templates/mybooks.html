@@ -25,6 +25,7 @@
                 </ul>
                 <img src="{{ book.id_book.cover.url }}" alt="NoPhotos" height="200px" width="200px"/><br/>
                 <a href="{{ book.id_book.pdf.url }}" > <button  type="submit" style="background-color:#483D8B; color: white">Read</button></a>
+                <a href="{% url 'remove' pk=book.pk %}" > <button  type="submit" style="background-color:#483D8B; color: white">Remove from my list</button></a>
             </div>
            
         {% endif %}

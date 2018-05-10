@@ -32,10 +32,9 @@
                     or electronic copies of any portions of the eContent for anyone other than yourself to use, nor will
                     you employ or allow the use of your account for the purpose of executing scripts, programs, or other
                     technologies designed or intended to create copies or otherwise reproduce eContent.</p>
-                        <a method="POST" class="post-form">{% csrf_token %}
+                        <form method="POST" class="post-form">{% csrf_token %}
                             {{ form.as_p }}
                             <button type="submit" class="save fancyBB">Yes, I agree</button>
-
                         </form>
             </div>
             <div class="col-sm-4"></div>

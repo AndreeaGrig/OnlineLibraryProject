@@ -57,6 +57,9 @@ urlpatterns = [
     url(r'^book/(?P<pk_book>[0-9]+)/review/(?P<pk>[0-9]+)/edit/$', views.ReviewUpdateView.as_view(),
         name='review_update'),
 
+    url(r'^remove/book/(?P<pk>[0-9]+)/$', views.MyBooksDeleteView.as_view(),
+        name='remove'),
+
     url('^', include('django.contrib.auth.urls')),
 
     url(r'^password_reset/$', auth_views.password_reset),

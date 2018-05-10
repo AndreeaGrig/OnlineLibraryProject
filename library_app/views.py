@@ -214,3 +214,17 @@ def add_book_to_mybooks(request, pk):
     else:
         form = BookForm()
         return render(request, 'addtomybooks.html', {'form': form})
+
+
+class MyBooksDeleteView(DeleteView):
+    template_name = 'remove.html'
+    model = Purchase
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse(
+            'my_books',
+            kwargs={
+                'pk': self.object.id_user.pk
+                }
+        )
+
