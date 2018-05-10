@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from datetime import datetime
 
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.models import User
@@ -13,7 +14,7 @@ from django.http import HttpResponse
 from django.views.generic import (UpdateView, ListView, CreateView, DetailView, DeleteView, FormView)
 from library_app.forms import SignupForm
 from library_app.tokens import account_activation_token
-from .forms import ReviewForm
+from .forms import ReviewForm, BookForm
 
 from models import Book, Purchase, Review
 from django.core.urlresolvers import reverse
@@ -49,10 +50,10 @@ def logout_view(request):
 class BookListView(ListView):
     template_name = 'home.html'
     model = Book
-    context_object_name = 'books'
 
     def get_context_data(self, *args, **kwargs):
         context = super(BookListView, self).get_context_data(*args, **kwargs)
+        context['books'] = Book.objects.all().order_by("add_date").reverse()
         context['romance'] = len(Book.objects.filter(category=5))
         context['art'] = len(Book.objects.filter(category=1))
         context['bio'] = len(Book.objects.filter(category=3))
@@ -192,3 +193,38 @@ class ReviewUpdateView(UpdateView):
                 'pk': self.object.id_book.pk
             }
         )
+
+
+def add_book_to_mybooks(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == "POST":
+        form = BookForm(request.POST)
+        if form.is_valid():
+            purchase = form.save(commit=False)
+            purchase.id_book = book
+            purchase.id_user = request.user
+            purchase.date = datetime.now()
+            purchase.save()
+            return redirect(reverse(
+                "my_books",
+                kwargs={
+                    "pk": request.user.pk
+                }
+            ))
+    else:
+        form = BookForm()
+        return render(request, 'addtomybooks.html', {'form': form})
+
+
+class MyBooksDeleteView(DeleteView):
+    template_name = 'remove.html'
+    model = Purchase
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse(
+            'my_books',
+            kwargs={
+                'pk': self.object.id_user.pk
+                }
+        )
+

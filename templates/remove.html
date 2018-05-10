@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+    <div class="col-sm-10 " style="background-color:#F5F5F5;padding-bottom: 20px; text-align: center; height: 360px;">
+    <style>
+         .fancyBB{
+                background-color: #070c0c;
+                border: none;
+                width: 30%;
+                padding: 10px;
+                color: white;
+                 font-family: 'Abril Fatface';
+                   font-size: 25px;
+                }
+            .fancyBB:hover{
+                color: black;
+                background-color: #feda86;
+            }
+    </style>
+
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4" style="border: #070c0c solid 2px; padding: 20px;margin-top: 20px;">
+                <span style="color: red; font-size: 30px;" class="glyphicon glyphicon-exclamation-sign"></span><br/>
+              <p style="font-family: 'Chenla';font-size: 20px;"> Are you sure you want to remove  <span style="font-family: 'Caveat Brush';font-size: 25px;"> {{ purchase.id_book.title }}</span> from your list?
+                  You will have to pay again for it in case of Premium books.</p>
+            <form method="POST" enctype="multipart/formdata">
+                {% csrf_token %}
+                <button class="fancyBB" type="submit"> Yes </button>
+                <a href = "{% url 'my_books' pk=request.user.pk %}"><button type="button" class="fancyBB">No</button></a>
+            </form>
+
+            </div>
+            <div class="col-sm-4"></div>
+
+    </div>
+
+{% endblock %}
