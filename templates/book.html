@@ -38,16 +38,8 @@
          <div class="row">
                             <div class="col-sm-4" style="text-align: center">
                                <h3 style="font-family: 'Caveat Brush';font-size: 40px;">{{ book.title }}</h3>
-                                {% if book.get_type_display == 'Standard' %}
-                                                {%  if request.user.is_authenticated %}
-                                                    <a href="{% url 'add_book_to_mybooks' pk=book.pk %}">
-                                                       <button class="fancyBB">
-                                                          Add to my books
-                                                       </button>
-                                                    </a>
-                                                {% endif %}
-                                {% endif %}
-                                <div class="thumbnail" style="padding-top: 20px;background-color: #F5F5F5">
+
+                                <div class="thumbnail" style="background-color: #F5F5F5;padding-top: 20px;">
                                   <img class="img-thumbnail" style="width:250px;height:350px" src="{{ book.cover.url }}" alt="Image">
                                   <div class="caption">
                                     {% if book.get_type_display == 'Premium' %}
@@ -69,12 +61,18 @@
                             </div>
                             </div>
 
-                            <div class="col-sm-4" style="padding-top: 100px;font-family: 'Chenla';font-size: 20px;">
-
+                            <div class="col-sm-4" style="padding-top: 100px;font-family: 'Chenla';font-size: 15px;">
+                                  {% if book.get_type_display == 'Standard' %}
+                                                {%  if request.user.is_authenticated %}
+                                                    <a style="color: #ffd734;font-size: 40px;" href="{% url 'add_book_to_mybooks' pk=book.pk %}" title="Add to my books">
+                                                          <span class="glyphicon glyphicon-star"></span>
+                                                    </a>
+                                                {% endif %}
+                                {% endif %}
                                 <ul style="list-style: none;">
                                             <li> <strong>Author: </strong>{{ book.author }}</li>
-                                            <li> <strong>Pub house: </strong>{{ book.pub_house }}</li>
-                                            <li> <strong>Pub date: </strong>{{ book.pub_date }}</li>
+                                            <li> <strong>Publishing House: </strong>{{ book.pub_house }}</li>
+                                            <li> <strong>Publishing date: </strong>{{ book.pub_date }}</li>
                                             <li> <strong>Category: </strong>{{ book.get_category_display }}</li>
                                 </ul>
                                    <p>{{ book.description }}</p>

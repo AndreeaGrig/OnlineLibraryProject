@@ -119,13 +119,13 @@
         font-weight: 400;
         letter-spacing: 5px;">THE LATEST</h1>
    </div>
-   <div class="row" style="padding: 20px">
+   <div class="row" style="margin-bottom: 20px;">
         {% for book in books %}
-
+           <div class="col-sm-3" style="margin-bottom: 20px;">
             <a href="{% url 'book_details' pk=book.pk %}">
-                <img class="img-thumbnail" style="width:250px;height:350px;margin-left:35px;margin-right:20px;margin-bottom: 10px; " src="{{ book.cover.url }}" alt="Image">
+                <img class="img-thumbnail" style="width:250px;height:350px; " src="{{ book.cover.url }}" alt="Image">
             </a>
-
+           </div>
         {% endfor %}
    </div>
     </div>
