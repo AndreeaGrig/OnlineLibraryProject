@@ -38,6 +38,15 @@
          <div class="row">
                             <div class="col-sm-4" style="text-align: center">
                                <h3 style="font-family: 'Caveat Brush';font-size: 40px;">{{ book.title }}</h3>
+                                {% if book.get_type_display == 'Standard' %}
+                                                {%  if request.user.is_authenticated %}
+                                                    <a href="{% url 'add_book_to_mybooks' pk=book.pk %}">
+                                                       <button class="fancyBB">
+                                                          Add to my books
+                                                       </button>
+                                                    </a>
+                                                {% endif %}
+                                {% endif %}
                                 <div class="thumbnail" style="padding-top: 20px;background-color: #F5F5F5">
                                   <img class="img-thumbnail" style="width:250px;height:350px" src="{{ book.cover.url }}" alt="Image">
                                   <div class="caption">

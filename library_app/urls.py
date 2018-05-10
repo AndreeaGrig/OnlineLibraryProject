@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^$',
         views.BookListView.as_view(), name='home'),
 
-url(r'^book/(?P<pk>[0-9]+)/$',
+    url(r'^book/(?P<pk>[0-9]+)/$',
         views.RecommendationListView.as_view(), name='book_details'),
 
     url(r'^login',
@@ -46,6 +46,10 @@ url(r'^book/(?P<pk>[0-9]+)/$',
     url(r'^book/(?P<pk>[0-9]+)/review/$',
         views.add_review_to_book,
         name='add_review_to_book'),
+
+    url(r'^book/(?P<pk>[0-9]+)/favorites/$',
+        views.add_book_to_mybooks,
+        name='add_book_to_mybooks'),
 
     url(r'^book/(?P<pk_book>[0-9]+)/review/(?P<pk>[0-9]+)/delete/$', views.ReviewDeleteView.as_view(),
         name='review_delete'),

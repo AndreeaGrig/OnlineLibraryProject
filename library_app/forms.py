@@ -8,7 +8,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.utils.http import urlsafe_base64_encode
 from jwt.utils import force_bytes
 
-from .models import Review
+from .models import Review, Purchase
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -32,3 +32,9 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ('text',)
 
+
+class BookForm(forms.ModelForm):
+
+    class Meta:
+        model = Purchase
+        fields = ()
