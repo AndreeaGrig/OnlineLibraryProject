@@ -96,6 +96,9 @@ class MyBooksView(ListView):
     model = Purchase
     context_object_name = 'books'
 
+    def get_queryset(self):
+        return Purchase.objects.filter(id_user=self.kwargs['pk']).distinct()
+
 
 class CategoryListView(ListView):
     template_name = 'category.html'
